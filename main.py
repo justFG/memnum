@@ -1,20 +1,35 @@
 def gauss_jordan(A, b):
+    """
+    Solve linear system Ax = b using Gauss-Jordan elimination.
+    Args:
+        A: square matrix as a list of lists
+        b: vector as a list
+    Returns:
+        solution vector
+    """
     n = len(A)
 
-    for k in range(n):
-        pivot = A[k][k]
-        for j in range(k, n):
-            A[k][j] /= pivot
-        b[k] /= pivot
+    # Make a copy to preserve originals
+    A_copy = [row[:] for row in A]
+    b_copy = b[:]
 
+    for k in range(n):
+        pivot = A_copy[k][k]
+
+        # Normalize pivot row
+        for j in range(k, n):
+            A_copy[k][j] /= pivot
+        b_copy[k] /= pivot
+
+        # Eliminate other rows
         for i in range(n):
             if i != k:
-                factor = A[i][k]
+                factor = A_copy[i][k]
                 for j in range(k, n):
-                    A[i][j] -= factor * A[k][j]
-                b[i] -= factor * b[k]
+                    A_copy[i][j] -= factor * A_copy[k][j]
+                b_copy[i] -= factor * b_copy[k]
 
-    return b
+    return b_copy
 
 if __name__ == "__main__":
     A = [
