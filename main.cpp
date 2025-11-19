@@ -3,28 +3,23 @@ using namespace std;
 
 const int N = 3;
 
-// Gauss-Jordan elimination function
 void gauss_jordan(float A[N][N], float b[N], float result[N]) {
     float tempA[N][N];
     float tempB[N];
 
-    // Copy matrix and vector
     for (int i = 0; i < N; i++) {
         tempB[i] = b[i];
         for (int j = 0; j < N; j++)
             tempA[i][j] = A[i][j];
     }
 
-    // Gauss-Jordan elimination
     for (int k = 0; k < N; k++) {
         float pivot = tempA[k][k];
 
-        // Normalize pivot row
         for (int j = k; j < N; j++)
             tempA[k][j] /= pivot;
         tempB[k] /= pivot;
 
-        // Eliminate other rows
         for (int i = 0; i < N; i++) {
             if (i != k) {
                 float factor = tempA[i][k];
@@ -49,6 +44,12 @@ int main() {
     float solution[N];
 
     gauss_jordan(A, b, solution);
+
+    // Print the solution
+    cout << "Solution: ";
+    for (int i = 0; i < N; i++)
+        cout << solution[i] << " ";
+    cout << endl;
 
     return 0;
 }
