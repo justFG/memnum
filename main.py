@@ -2,13 +2,11 @@ def gauss_jordan(A, b):
     n = len(A)
 
     for k in range(n):
-        # Normalize pivot row
         pivot = A[k][k]
         for j in range(k, n):
             A[k][j] /= pivot
         b[k] /= pivot
 
-        # Eliminate all other rows
         for i in range(n):
             if i != k:
                 factor = A[i][k]
@@ -27,3 +25,4 @@ if __name__ == "__main__":
     b = [8, -11, -3]
 
     solution = gauss_jordan(A, b)
+    print("Solution:", solution)
